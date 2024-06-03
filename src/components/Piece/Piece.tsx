@@ -2,9 +2,10 @@ import * as pieceSpec from "@/const/piece";
 import {
   getInnerCylindersPositions,
   getPieceBoxSurfaces,
+  getPieceInnerSurfaces,
   getStudsPositions,
 } from "@/lib/piece";
-import { PieceConfig, Position, Surface } from "@/models/piece";
+import { PieceConfig, Position } from "@/models/piece";
 
 type PieceProps = {
   position: Position;
@@ -82,28 +83,12 @@ const InnerCylinders = ({ color, position, config }: PieceProps) => {
 };
 
 const PieceBox = ({ position, config, color }: PieceProps) => {
-  const surfaces: Surface[] = getPieceBoxSurfaces(position, config);
-
-  // {
-  //   position: [
-  //     position[0],
-  //     position[1] + (BOX_HEIGHT - TOP_THICKNESS - INNER_HEIGHT) / 2,
-  //     position[2] + INSIDE_POSITION_SHIFT,
-  //   ],
-  //   shape: [INSIDE_THICKNESS, INNER_HEIGHT, INSIDE_WIDTH],
-  // },
-  // {
-  //   position: [
-  //     position[0],
-  //     position[1] + (BOX_HEIGHT - TOP_THICKNESS - INNER_HEIGHT) / 2,
-  //     position[2] - INSIDE_POSITION_SHIFT,
-  //   ],
-  //   shape: [INSIDE_THICKNESS, INNER_HEIGHT, INSIDE_WIDTH],
-  // },
+  const surfaces = getPieceBoxSurfaces(position, config);
+  const innerSurfaces = getPieceInnerSurfaces(position, config);
 
   return (
     <>
-      {surfaces.map(({ position, shape }, idx) => (
+      {[...surfaces, ...innerSurfaces].map(({ position, shape }, idx) => (
         <mesh position={position} key={idx}>
           <boxGeometry args={shape} />
           <meshStandardMaterial color={color} />
@@ -115,11 +100,11 @@ const PieceBox = ({ position, config, color }: PieceProps) => {
 
 const Piece = (props: PieceProps) => {
   return (
-    <mesh>
+    <>
       {!props.config.isFlat && <Studs {...props} />}
       <PieceBox {...props} />
       <InnerCylinders {...props} />
-    </mesh>
+    </>
   );
 };
 

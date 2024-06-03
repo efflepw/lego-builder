@@ -58,6 +58,58 @@ export const getPieceBoxSurfaces = (
   return [topSurface, leftSurface, rightSurface, frontSurface, backSurface];
 };
 
+export const getPieceInnerSurfaces = (
+  position: Position,
+  config: PieceConfig
+) => {
+  const innerSurfaces: Surface[] = [];
+
+  if (config.height === "tall" && config.width === 2 && config.length > 3) {
+    const shape: Shape = [
+      pieceSpec.INNER_SURFACE_THICKNESS,
+      pieceSpec.INNER_SURFACE_HEIGHT,
+      pieceSpec.INNER_SURFACE_WIDTH,
+    ];
+
+    const heightShift =
+      (pieceSpec.BOX_HEIGHT -
+        pieceSpec.BOX_TOP_THICKNESS -
+        pieceSpec.INNER_SURFACE_HEIGHT) /
+      2;
+
+    const widthShift =
+      pieceSpec.BASIC_SIZE -
+      pieceSpec.BOX_SIDE_THICKNESS -
+      pieceSpec.INNER_SURFACE_WIDTH / 2;
+
+    for (let i = 2; i < config.length; i = i + 2) {
+      const lengthShift = pieceSpec.BASIC_SIZE * (i - config.length / 2);
+
+      const surface1: Surface = {
+        position: [
+          position[0] + lengthShift,
+          position[1] + heightShift,
+          position[2] + widthShift,
+        ],
+        shape,
+      };
+
+      const surface2: Surface = {
+        position: [
+          position[0] + lengthShift,
+          position[1] + heightShift,
+          position[2] - widthShift,
+        ],
+        shape,
+      };
+
+      innerSurfaces.push(surface1, surface2);
+    }
+  }
+
+  return innerSurfaces;
+};
+
 export const getStudsPositions = (position: Position, config: PieceConfig) => {
   const boxHeight =
     config.height === "flat" ? pieceSpec.FLAT_BOX_HEIGHT : pieceSpec.BOX_HEIGHT;

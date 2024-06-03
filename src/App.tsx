@@ -8,8 +8,8 @@ import { PieceConfig } from "@/models/piece";
 
 const App = () => {
   const pieceConfig: PieceConfig = {
-    width: 4,
-    length: 2,
+    width: 2,
+    length: 4,
     height: "tall",
     isFlat: false,
   };
