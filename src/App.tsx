@@ -1,54 +1,32 @@
-import { Canvas } from "@react-three/fiber";
-// import { Canvas, useFrame } from "@react-three/fiber";
 import "./App.css";
-// import { useRef, useState } from "react";
-// import { Mesh } from "three";
+
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls, PerformanceMonitor } from "@react-three/drei";
-import { Piece4by2 } from "./components/pieces";
 
-// const Piece = (props: PosProps) => {
-//   const meshRef = useRef<Mesh>(null);
-
-//   const [hovered, setHover] = useState(false);
-//   const [active, setActive] = useState(false);
-
-//   useFrame((_, delta) => {
-//     if (meshRef.current) {
-//       meshRef.current.rotation.x += 0.05 * delta;
-//       meshRef.current.rotation.y += 0.1 * delta;
-//     }
-//   });
-
-//   return (
-//     <mesh
-//       {...props}
-//       ref={meshRef}
-//       scale={active ? 1.5 : 1}
-//       onClick={() => setActive(!active)}
-//       onPointerOver={() => setHover(true)}
-//       onPointerOut={() => setHover(false)}
-//     >
-//       {/* <boxGeometry args={[2, 0.5, 1]} /> */}
-//       <cylinderGeometry args={[0.5, 0.5, 0.2]} />
-//       <meshStandardMaterial color={hovered ? "hotpink" : "orange"} />
-//     </mesh>
-//   );
-// };
+import { Piece } from "@/components/Piece";
+import { PieceConfig } from "@/models/piece";
 
 const App = () => {
+  const pieceConfig: PieceConfig = {
+    width: 4,
+    length: 2,
+    height: "tall",
+    isFlat: false,
+  };
+
   return (
     <main className="bg-black h-screen">
       <Canvas camera={{ position: [0, 7, 15], fov: 20 }} shadows>
         <ambientLight intensity={Math.PI / 2} />
         <spotLight
-          position={[10, 10, 10]}
+          position={[10, 100, 10]}
           angle={0.15}
           penumbra={1}
           decay={0}
           intensity={Math.PI}
         />
-        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
-        <Piece4by2 position={[0, 0, 0]} />
+        <pointLight position={[-10, -20, -10]} decay={0} intensity={Math.PI} />
+        <Piece position={[0, 0, 0]} color="orange" config={pieceConfig} />
         <OrbitControls />
         <PerformanceMonitor />
       </Canvas>
