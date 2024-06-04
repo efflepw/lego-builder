@@ -101,7 +101,7 @@ const PieceBox = ({ position, config, color }: PieceProps) => {
 const Piece = (props: PieceProps) => {
   return (
     <>
-      {!props.config.isFlat && <Studs {...props} />}
+      {!props.config.isSlick && <Studs {...props} />}
       <PieceBox {...props} />
       <InnerCylinders {...props} />
     </>

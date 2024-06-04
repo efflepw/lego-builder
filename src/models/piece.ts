@@ -10,5 +10,11 @@ export type PieceConfig = {
   width: number;
   length: number;
   height: "flat" | "tall";
-  isFlat: boolean;
+  isSlick: boolean;
+};
+
+export type Piece = {
+  position: Position;
+  color: string;
+  config: PieceConfig;
 };
