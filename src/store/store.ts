@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { interfaceReducer } from "@/features/interface";
+import { canvasReducer } from "@/features/canvas";
 
 export const store = configureStore({
   reducer: {
     interface: interfaceReducer,
+    canvas: canvasReducer,
   },
 });
 

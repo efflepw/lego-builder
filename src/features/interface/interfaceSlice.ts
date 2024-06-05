@@ -7,7 +7,7 @@ export interface InterfaceState {
 
 const initialState: InterfaceState = {
   newPiece: {
-    position: [0, 0, 0],
+    position: [0, 2, 0],
     color: "orange",
     config: {
       width: 2,
