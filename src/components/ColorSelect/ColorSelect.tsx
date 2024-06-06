@@ -7,9 +7,13 @@ import {
 } from "@/components/ui/select";
 import { SUPPORTED_PIECE_COLORS } from "@/const/colors";
 
-const ColorSelect = () => {
+type Props = {
+  onUpdate: (color: string) => void;
+};
+
+const ColorSelect = ({ onUpdate }: Props) => {
   return (
-    <Select>
+    <Select onValueChange={onUpdate}>
       <SelectTrigger className="w-[100%]">
         <SelectValue placeholder="Color" />
       </SelectTrigger>

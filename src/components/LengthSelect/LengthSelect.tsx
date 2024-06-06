@@ -7,11 +7,19 @@ import {
 } from "@/components/ui/select";
 import { SUPPORTED_PIECE_LENGTH } from "@/const/dimensions";
 
-const LengthSelect = () => {
+type Props = {
+  onUpdate: (length: number) => void;
+};
+
+const LengthSelect = ({ onUpdate }: Props) => {
+  const onValueChange = (value: string) => {
+    onUpdate(parseInt(value, 10));
+  };
+
   return (
-    <Select>
+    <Select onValueChange={onValueChange}>
       <SelectTrigger className="w-[100%]">
-        <SelectValue placeholder="Color" />
+        <SelectValue placeholder="Length" />
       </SelectTrigger>
       <SelectContent>
         {SUPPORTED_PIECE_LENGTH.map((length) => (
