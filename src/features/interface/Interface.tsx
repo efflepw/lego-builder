@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateNewPieceColor, updateNewPieceConfig } from "./interfaceSlice";
 import { Piece } from "@/models/piece";
 import { RootState } from "@/store";
+import useNewPiecePosition from "./useNewPiecePosition";
 
 type Props = {
   children: React.ReactNode;
@@ -32,6 +33,8 @@ const Interface = ({ children }: Props) => {
     (value: string | number | boolean): void => {
       dispatch(updateNewPieceConfig({ [key]: value }));
     };
+
+  useNewPiecePosition();
 
   return (
     <div className="min-h-dvh">
