@@ -8,12 +8,13 @@ import {
 import { SUPPORTED_PIECE_COLORS } from "@/const/colors";
 
 type Props = {
+  color: string;
   onUpdate: (color: string) => void;
 };
 
-const ColorSelect = ({ onUpdate }: Props) => {
+const ColorSelect = ({ color, onUpdate }: Props) => {
   return (
-    <Select onValueChange={onUpdate}>
+    <Select value={color} onValueChange={onUpdate}>
       <SelectTrigger className="w-[100%]">
         <SelectValue placeholder="Color" />
       </SelectTrigger>

@@ -8,16 +8,17 @@ import {
 import { SUPPORTED_PIECE_LENGTH } from "@/const/dimensions";
 
 type Props = {
+  value: number;
   onUpdate: (length: number) => void;
 };
 
-const LengthSelect = ({ onUpdate }: Props) => {
+const LengthSelect = ({ value, onUpdate }: Props) => {
   const onValueChange = (value: string) => {
     onUpdate(parseInt(value, 10));
   };
 
   return (
-    <Select onValueChange={onValueChange}>
+    <Select value={value.toString()} onValueChange={onValueChange}>
       <SelectTrigger className="w-[100%]">
         <SelectValue placeholder="Length" />
       </SelectTrigger>

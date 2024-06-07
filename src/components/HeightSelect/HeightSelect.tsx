@@ -8,12 +8,13 @@ import {
 import { SUPPORTED_PIECE_HEIGHT } from "@/const/dimensions";
 
 type Props = {
+  value: string;
   onUpdate: (height: string) => void;
 };
 
-const HeightSelect = ({ onUpdate }: Props) => {
+const HeightSelect = ({ value, onUpdate }: Props) => {
   return (
-    <Select onValueChange={onUpdate}>
+    <Select value={value} onValueChange={onUpdate}>
       <SelectTrigger className="w-[100%]">
         <SelectValue placeholder="Height" />
       </SelectTrigger>

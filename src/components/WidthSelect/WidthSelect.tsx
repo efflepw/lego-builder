@@ -8,16 +8,17 @@ import {
 import { SUPPORTED_PIECE_WIDTH } from "@/const/dimensions";
 
 type Props = {
+  value: number;
   onUpdate: (width: number) => void;
 };
 
-const WidthSelect = ({ onUpdate }: Props) => {
+const WidthSelect = ({ value, onUpdate }: Props) => {
   const onValueChange = (value: string) => {
     onUpdate(parseInt(value, 10));
   };
 
   return (
-    <Select onValueChange={onValueChange}>
+    <Select value={value.toString()} onValueChange={onValueChange}>
       <SelectTrigger className="w-[100%]">
         <SelectValue placeholder="Width" />
       </SelectTrigger>
