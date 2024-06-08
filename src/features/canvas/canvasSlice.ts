@@ -24,12 +24,12 @@ export const canvasSlice = createSlice({
   name: "canvas",
   initialState,
   reducers: {
-    addPiece: (state, action: PayloadAction<Piece>) => {
+    addNewPiece: (state, action: PayloadAction<Piece>) => {
       state.pieces.push(action.payload);
     },
   },
 });
 
-export const { addPiece } = canvasSlice.actions;
+export const { addNewPiece } = canvasSlice.actions;
 
 export default canvasSlice.reducer;

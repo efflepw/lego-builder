@@ -24,11 +24,13 @@ const BuilderCanvas = () => {
         intensity={Math.PI}
       />
       <pointLight position={[-10, -20, -10]} decay={0} intensity={Math.PI} />
-      <Piece
-        position={newPiece.position}
-        color={newPiece.color}
-        config={newPiece.config}
-      />
+      {newPiece && (
+        <Piece
+          position={newPiece.position}
+          color={newPiece.color}
+          config={newPiece.config}
+        />
+      )}
       {pieces.map((piece, index) => (
         <Piece
           key={index}

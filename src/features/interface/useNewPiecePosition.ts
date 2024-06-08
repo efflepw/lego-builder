@@ -1,16 +1,19 @@
 import { RootState } from "@/store";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateNewPiecePosition } from "./interfaceSlice";
+import { restoreDefault, updateNewPiecePosition } from "./interfaceSlice";
 import { BASIC_SIZE, FLAT_BOX_HEIGHT } from "@/const/piece";
+import { addNewPiece } from "../canvas/canvasSlice";
 
 const useNewPiecePosition = () => {
   const dispatch = useDispatch();
-  const position = useSelector(
-    (state: RootState) => state.interface.newPiece.position
-  );
+  const newPiece = useSelector((state: RootState) => state.interface.newPiece);
 
   const handleKeyDown = (event: KeyboardEvent) => {
+    if (!newPiece) return;
+
+    const position = newPiece.position;
+
     event.preventDefault();
     switch (event.key) {
       case "a":
@@ -67,6 +70,10 @@ const useNewPiecePosition = () => {
           ])
         );
         break;
+      case "Enter":
+        dispatch(addNewPiece(newPiece));
+        dispatch(restoreDefault());
+        break;
       default:
         break;
     }
@@ -78,7 +85,7 @@ const useNewPiecePosition = () => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [position]);
+  }, [newPiece]);
 };
 
 export default useNewPiecePosition;
