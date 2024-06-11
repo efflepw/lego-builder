@@ -4,16 +4,12 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-import ColorSelect from "@/components/ColorSelect";
-import WidthSelect from "@/components/WidthSelect";
-import LengthSelect from "@/components/LengthSelect";
-import HeightSelect from "@/components/HeightSelect";
-import SlicknessSwitch from "@/components/SlicknessSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { updateNewPieceColor, updateNewPieceConfig } from "./interfaceSlice";
 import { Piece } from "@/models/piece";
 import { RootState } from "@/store";
 import useNewPiecePosition from "./useNewPiecePosition";
+import NewPieceForm from "@/components/NewPieceForm";
 
 type Props = {
   children: React.ReactNode;
@@ -43,27 +39,15 @@ const Interface = ({ children }: Props) => {
           {children}
         </ResizablePanel>
         <ResizableHandle />
-        <ResizablePanel>
-          <div className="px-4 py-8 text-white flex flex-col gap-6">
-            <ColorSelect color={newPiece.color} onUpdate={onColorUpdate} />
-            <WidthSelect
-              value={newPiece.config.width}
-              onUpdate={onConfigUpdate("width")}
+        {newPiece && (
+          <ResizablePanel>
+            <NewPieceForm
+              newPiece={newPiece}
+              onConfigUpdate={onConfigUpdate}
+              onColorUpdate={onColorUpdate}
             />
-            <LengthSelect
-              value={newPiece.config.length}
-              onUpdate={onConfigUpdate("length")}
-            />
-            <HeightSelect
-              value={newPiece.config.height}
-              onUpdate={onConfigUpdate("height")}
-            />
-            <SlicknessSwitch
-              value={newPiece.config.isSlick}
-              onUpdate={onConfigUpdate("isSlick")}
-            />
-          </div>
-        </ResizablePanel>
+          </ResizablePanel>
+        )}
       </ResizablePanelGroup>
     </div>
   );
