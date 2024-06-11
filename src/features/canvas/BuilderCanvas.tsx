@@ -9,6 +9,8 @@ const BuilderCanvas = () => {
   const newPiece = useSelector((state: RootState) => state.interface.newPiece);
   const pieces = useSelector((state: RootState) => state.canvas.pieces);
 
+  const piecesToRender = newPiece ? [...pieces, newPiece] : pieces;
+
   return (
     <Canvas
       camera={{ position: [10, 20, 15], fov: 30 }}
@@ -24,14 +26,7 @@ const BuilderCanvas = () => {
         intensity={Math.PI}
       />
       <pointLight position={[-10, -20, -10]} decay={0} intensity={Math.PI} />
-      {newPiece && (
-        <Piece
-          position={newPiece.position}
-          color={newPiece.color}
-          config={newPiece.config}
-        />
-      )}
-      {pieces.map((piece, index) => (
+      {piecesToRender.map((piece, index) => (
         <Piece
           key={index}
           position={piece.position}

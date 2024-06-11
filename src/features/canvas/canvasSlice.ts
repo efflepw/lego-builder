@@ -6,18 +6,7 @@ export interface CanvasState {
 }
 
 const initialState: CanvasState = {
-  pieces: [
-    {
-      position: [0, 0, 0],
-      color: "orange",
-      config: {
-        width: 24,
-        length: 36,
-        height: "flat",
-        isSlick: false,
-      },
-    },
-  ],
+  pieces: [],
 };
 
 export const canvasSlice = createSlice({
@@ -26,10 +15,15 @@ export const canvasSlice = createSlice({
   reducers: {
     addNewPiece: (state, action: PayloadAction<Piece>) => {
       state.pieces.push(action.payload);
+
+      localStorage.setItem("pieces", JSON.stringify(state.pieces));
+    },
+    setLoadedPieces: (state, action: PayloadAction<Piece[]>) => {
+      state.pieces = action.payload;
     },
   },
 });
 
-export const { addNewPiece } = canvasSlice.actions;
+export const { addNewPiece, setLoadedPieces } = canvasSlice.actions;
 
 export default canvasSlice.reducer;
