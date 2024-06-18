@@ -1,21 +1,13 @@
 import { Piece, Position } from "@/models/piece";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { newPieceState } from "./mock";
 
 export interface InterfaceState {
   newPiece: Piece | null;
 }
 
 const initialState: InterfaceState = {
-  newPiece: {
-    position: [0, 2, 0],
-    color: "orange",
-    config: {
-      width: 2,
-      length: 4,
-      height: "tall",
-      isSlick: false,
-    },
-  },
+  newPiece: null,
 };
 
 export const interfaceSlice = createSlice({
@@ -24,6 +16,9 @@ export const interfaceSlice = createSlice({
   reducers: {
     restoreDefault: (state) => {
       state.newPiece = initialState.newPiece;
+    },
+    addEmptyPiece: (state) => {
+      state.newPiece = newPieceState;
     },
     updateNewPiecePosition: (state, action: PayloadAction<Position>) => {
       if (!state.newPiece) return;
@@ -50,6 +45,7 @@ export const interfaceSlice = createSlice({
 });
 
 export const {
+  addEmptyPiece,
   restoreDefault,
   updateNewPiecePosition,
   updateNewPieceColor,

@@ -1,15 +1,16 @@
+import { useDispatch, useSelector } from "react-redux";
+
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-
-import { useDispatch, useSelector } from "react-redux";
-import { updateNewPieceColor, updateNewPieceConfig } from "./interfaceSlice";
 import { Piece } from "@/models/piece";
 import { RootState } from "@/store";
-import useNewPiecePosition from "./useNewPiecePosition";
 import NewPieceForm from "@/components/NewPieceForm";
+
+import { updateNewPieceColor, updateNewPieceConfig } from "./interfaceSlice";
+import { useKeyControl, useNewPiecePosition } from ".";
 
 type Props = {
   children: React.ReactNode;
@@ -30,12 +31,13 @@ const Interface = ({ children }: Props) => {
       dispatch(updateNewPieceConfig({ [key]: value }));
     };
 
-  useNewPiecePosition();
+  useNewPiecePosition(newPiece);
+  useKeyControl(newPiece);
 
   return (
     <div className="min-h-dvh">
       <ResizablePanelGroup direction="horizontal" className="min-h-dvh">
-        <ResizablePanel className="h-auto" defaultSize={80}>
+        <ResizablePanel className="h-auto" defaultSize={!!newPiece ? 80 : 100}>
           {children}
         </ResizablePanel>
         <ResizableHandle />
