@@ -1,10 +1,12 @@
 # @todo
 
 - [x] save data to local storage
-- [ ] add detail rotation
+- [ ] add piece rotation
 - [ ] add hint window
-- [ ] add optimizations
 - [ ] improve create new detail flow
 - [ ] add relative piece movement
 - [ ] add more details
-- [ ] add rotate detail
+- [ ] add optimizations
+- [ ] add piece selection
+- [ ] add piece deletion
+- [ ] update README
