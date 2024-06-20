@@ -9,4 +9,5 @@
 - [ ] add optimizations
 - [ ] add piece selection
 - [ ] add piece deletion
+- [ ] add camera position movement
 - [ ] update README
