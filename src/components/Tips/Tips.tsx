@@ -1,18 +1,18 @@
 const HOME_KEYS = [
   {
     k: "Enter",
-    text: "open add new piece window",
+    text: "open add new piece drawer",
   },
 ];
 
-const NEW_PIECE_WINDOW_KEYS = [
+const NEW_PIECE_DRAWER_KEYS = [
   {
     k: "Enter",
     text: "save new piece",
   },
   {
     k: "Backspace",
-    text: "close add new piece window",
+    text: "close add new piece drawer",
   },
   {
     k: "W, A, S, D",
@@ -25,7 +25,7 @@ type Props = {
 };
 
 const Tips = ({ state }: Props) => {
-  const KEYS = state == "HOME" ? HOME_KEYS : NEW_PIECE_WINDOW_KEYS;
+  const KEYS = state == "HOME" ? HOME_KEYS : NEW_PIECE_DRAWER_KEYS;
 
   return (
     <div className="bg-[#ffffff] absolute bottom-6 right-10 p-3 rounded-md opacity-70">

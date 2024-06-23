@@ -2,7 +2,7 @@
 
 - [x] save data to local storage
 - [ ] add piece rotation
-- [ ] add hint window
+- [x] add hint tooltip
 - [ ] improve create new detail flow
 - [ ] add relative piece movement
 - [ ] add more details
