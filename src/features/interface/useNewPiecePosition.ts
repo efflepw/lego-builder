@@ -19,8 +19,8 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
 
     event.preventDefault();
 
-    switch (event.key) {
-      case "a":
+    switch (event.code) {
+      case "KeyA":
         dispatch(
           updateNewPiecePosition([
             position[0] - BASIC_SIZE,
@@ -29,7 +29,7 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
           ])
         );
         break;
-      case "d":
+      case "KeyD":
         dispatch(
           updateNewPiecePosition([
             position[0] + BASIC_SIZE,
@@ -38,7 +38,7 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
           ])
         );
         break;
-      case "s":
+      case "KeyS":
         dispatch(
           updateNewPiecePosition([
             position[0],
@@ -47,7 +47,7 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
           ])
         );
         break;
-      case "w":
+      case "KeyW":
         dispatch(
           updateNewPiecePosition([
             position[0],
@@ -56,7 +56,7 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
           ])
         );
         break;
-      case "f":
+      case "KeyF":
         dispatch(
           updateNewPiecePosition([
             position[0],
@@ -65,7 +65,7 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
           ])
         );
         break;
-      case "x":
+      case "KeyX":
         dispatch(
           updateNewPiecePosition([
             position[0],
@@ -74,8 +74,8 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
           ])
         );
         break;
-      case "q":
-      case "e":
+      case "KeyQ":
+      case "KeyE":
         dispatch(rotatePiece());
         break;
       case "Enter":

@@ -5,7 +5,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SUPPORTED_PIECE_COLORS } from "@/const/colors";
+import { PIECES_COLORS } from "@/const/colors";
 
 type Props = {
   color: string;
@@ -19,9 +19,9 @@ const ColorSelect = ({ color, onUpdate }: Props) => {
         <SelectValue placeholder="Color" />
       </SelectTrigger>
       <SelectContent>
-        {SUPPORTED_PIECE_COLORS.map((color) => (
-          <SelectItem key={color} value={color}>
-            {color.charAt(0).toUpperCase() + color.slice(1)}
+        {PIECES_COLORS.map(({ label, value }) => (
+          <SelectItem key={value} value={value}>
+            {label}
           </SelectItem>
         ))}
       </SelectContent>

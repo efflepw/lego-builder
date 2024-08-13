@@ -10,8 +10,7 @@ const useKeyControl = (newPiece: Piece | null) => {
   const handleKeyDown = (event: KeyboardEvent) => {
     event.preventDefault();
 
-    console.log(event.key);
-    switch (event.key) {
+    switch (event.code) {
       case "Enter":
         if (!newPiece) {
           dispatch(addEmptyPiece());
