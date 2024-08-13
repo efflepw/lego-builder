@@ -1,6 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { restoreDefault, updateNewPiecePosition } from "./interfaceSlice";
+import {
+  restoreDefault,
+  rotatePiece,
+  updateNewPiecePosition,
+} from "./interfaceSlice";
 import { BASIC_SIZE, FLAT_BOX_HEIGHT } from "@/const/piece";
 import { addNewPiece } from "../canvas/canvasSlice";
 import { Piece } from "@/models/piece";
@@ -69,6 +73,10 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
             position[2],
           ])
         );
+        break;
+      case "q":
+      case "e":
+        dispatch(rotatePiece());
         break;
       case "Enter":
         dispatch(addNewPiece(newPiece));

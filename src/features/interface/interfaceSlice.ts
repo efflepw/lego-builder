@@ -41,12 +41,21 @@ export const interfaceSlice = createSlice({
         ...action.payload,
       };
     },
+    rotatePiece: (state) => {
+      if (!state.newPiece) return;
+
+      const temp = state.newPiece.config.width;
+
+      state.newPiece.config.width = state.newPiece.config.length;
+      state.newPiece.config.length = temp;
+    },
   },
 });
 
 export const {
   addEmptyPiece,
   restoreDefault,
+  rotatePiece,
   updateNewPiecePosition,
   updateNewPieceColor,
   updateNewPieceConfig,

@@ -18,6 +18,10 @@ const NEW_PIECE_DRAWER_KEYS = [
     k: "W, A, S, D",
     text: "move forward, left, backward, right",
   },
+  {
+    k: "Q, E",
+    text: "rotate piece",
+  },
 ];
 
 type Props = {
