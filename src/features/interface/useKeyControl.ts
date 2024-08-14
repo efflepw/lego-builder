@@ -1,8 +1,10 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+
+import { Piece } from "@/models/piece";
+import { useHandleKeyDown } from "@/hooks";
+
 import { addEmptyPiece, restoreDefault } from "./interfaceSlice";
 import { addNewPiece } from "../canvas/canvasSlice";
-import { Piece } from "@/models/piece";
 
 const useKeyControl = (newPiece: Piece | null) => {
   const dispatch = useDispatch();
@@ -29,13 +31,7 @@ const useKeyControl = (newPiece: Piece | null) => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [newPiece]);
+  useHandleKeyDown(handleKeyDown);
 };
 
 export default useKeyControl;

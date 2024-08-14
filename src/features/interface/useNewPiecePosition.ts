@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import {
   restoreDefault,
@@ -8,6 +7,8 @@ import {
 import { BASIC_SIZE, FLAT_BOX_HEIGHT } from "@/const/piece";
 import { addNewPiece } from "../canvas/canvasSlice";
 import { Piece } from "@/models/piece";
+import { useHandleKeyDown } from "@/hooks";
+import { useCallback } from "react";
 
 const useNewPiecePosition = (newPiece: Piece | null) => {
   const dispatch = useDispatch();
@@ -87,15 +88,7 @@ const useNewPiecePosition = (newPiece: Piece | null) => {
     }
   };
 
-  useEffect(() => {
-    if (!!newPiece) {
-      window.addEventListener("keydown", handleKeyDown);
-
-      return () => {
-        window.removeEventListener("keydown", handleKeyDown);
-      };
-    }
-  }, [newPiece]);
+  useHandleKeyDown(useCallback(handleKeyDown, [newPiece]));
 };
 
 export default useNewPiecePosition;
