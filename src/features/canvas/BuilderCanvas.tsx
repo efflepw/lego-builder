@@ -1,15 +1,36 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, PerformanceMonitor } from "@react-three/drei";
+import {
+  OrbitControls,
+  OrbitControlsChangeEvent,
+  PerformanceMonitor,
+} from "@react-three/drei";
 
 import { Piece } from "@/components/Piece";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
+import { setSide } from "../camera";
+import { getSide } from "@/lib/camera";
 
 const BuilderCanvas = () => {
   const newPiece = useSelector((state: RootState) => state.interface.newPiece);
   const pieces = useSelector((state: RootState) => state.canvas.pieces);
+  const cameraSide = useSelector((state: RootState) => state.camera.side);
+
+  const dispatch = useDispatch();
 
   const piecesToRender = newPiece ? [...pieces, newPiece] : pieces;
+
+  const handleRotationChange = (event?: OrbitControlsChangeEvent) => {
+    if (event?.target) {
+      const position = event.target.object.position;
+      const azimuth = Math.atan2(position.z, position.x) + Math.PI;
+      const side = getSide(azimuth);
+
+      if (side != cameraSide) {
+        dispatch(setSide(side));
+      }
+    }
+  };
 
   return (
     <Canvas
@@ -34,7 +55,7 @@ const BuilderCanvas = () => {
           config={piece.config}
         />
       ))}
-      <OrbitControls />
+      <OrbitControls onChange={handleRotationChange} />
       <PerformanceMonitor />
     </Canvas>
   );
