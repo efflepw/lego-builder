@@ -20,8 +20,6 @@ const Interface = ({ children }: Props) => {
   const newPiece = useSelector((state: RootState) => state.interface.newPiece);
   const cameraSide = useSelector((state: RootState) => state.camera.side);
 
-  console.log({ cameraSide });
-
   const dispatch = useDispatch();
 
   const onColorUpdate = (newColor: string): void => {

@@ -5,6 +5,7 @@ import { useHandleKeyDown } from "@/hooks";
 
 import { addEmptyPiece, restoreDefault } from "./interfaceSlice";
 import { addNewPiece } from "../canvas/canvasSlice";
+import { INTERFACE_KB } from "@/const/keyBindings";
 
 const useKeyControl = (newPiece: Piece | null) => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const useKeyControl = (newPiece: Piece | null) => {
     event.preventDefault();
 
     switch (event.code) {
-      case "Enter":
+      case INTERFACE_KB.apply:
         if (!newPiece) {
           dispatch(addEmptyPiece());
         } else {
@@ -21,7 +22,7 @@ const useKeyControl = (newPiece: Piece | null) => {
           dispatch(restoreDefault());
         }
         break;
-      case "Backspace":
+      case INTERFACE_KB.back:
         if (!!newPiece) {
           dispatch(restoreDefault());
         }

@@ -10,40 +10,40 @@ import { Piece, Position } from "@/models/piece";
 import { useHandleKeyDown } from "@/hooks";
 import { useCallback } from "react";
 import { Side } from "@/models/camera";
+import {
+  INTERFACE_KB,
+  PLACEMENT_KB,
+  POSITION_KB,
+  ROTATION_KB,
+} from "@/const/keyBindings";
 
-const POSITION_KEYS = ["KeyA", "KeyD", "KeyW", "KeyS"];
-const PositionKeysSet = new Set(POSITION_KEYS);
+const PositionKeysSet = new Set(Object.values(POSITION_KB));
+
+const keyIndex: Record<string, Side> = {
+  [POSITION_KB.left]: 0,
+  [POSITION_KB.forward]: 1,
+  [POSITION_KB.right]: 2,
+  [POSITION_KB.backward]: 3,
+};
+
+const directions = [
+  [0, -1],
+  [1, 0],
+  [0, 1],
+  [-1, 0],
+];
 
 const changePosition = (
   keyCode: string,
-  position: Position,
+  [x, y, z]: Position,
   side: Side,
   setNewPosition: (pos: Position) => void
 ) => {
-  console.log(keyCode, position, side);
+  const dMoves = [...directions.slice(side), ...directions.slice(0, side)];
 
-  const keyIndex: Record<string, number> = {
-    KeyA: 0,
-    KeyW: 1,
-    KeyD: 2,
-    KeyS: 3,
-  };
-  const newPos = [
-    [-1, 0],
-    [0, 1],
-    [1, 0],
-    [0, -1],
-  ];
+  const [dx, dz] = dMoves[keyIndex[keyCode]];
 
-  newPos.unshift(...newPos.splice(-1 * side));
-
-  const multipliers = newPos[keyIndex[keyCode]];
-
-  setNewPosition([
-    position[0] + BASIC_SIZE * multipliers[0],
-    position[1],
-    position[2] + BASIC_SIZE * multipliers[1],
-  ]);
+  setNewPosition([x + BASIC_SIZE * dx, y, z + BASIC_SIZE * dz]);
 };
 
 const useNewPiecePosition = (newPiece: Piece | null, cameraSide: Side) => {
@@ -67,7 +67,7 @@ const useNewPiecePosition = (newPiece: Piece | null, cameraSide: Side) => {
     }
 
     switch (event.code) {
-      case "KeyF":
+      case PLACEMENT_KB.down:
         dispatch(
           updateNewPiecePosition([
             position[0],
@@ -76,7 +76,7 @@ const useNewPiecePosition = (newPiece: Piece | null, cameraSide: Side) => {
           ])
         );
         break;
-      case "KeyX":
+      case PLACEMENT_KB.up:
         dispatch(
           updateNewPiecePosition([
             position[0],
@@ -85,11 +85,11 @@ const useNewPiecePosition = (newPiece: Piece | null, cameraSide: Side) => {
           ])
         );
         break;
-      case "KeyQ":
-      case "KeyE":
+      case ROTATION_KB.left:
+      case ROTATION_KB.right:
         dispatch(rotatePiece());
         break;
-      case "Enter":
+      case INTERFACE_KB.apply:
         dispatch(addNewPiece(newPiece));
         dispatch(restoreDefault());
         break;
@@ -98,7 +98,7 @@ const useNewPiecePosition = (newPiece: Piece | null, cameraSide: Side) => {
     }
   };
 
-  useHandleKeyDown(useCallback(handleKeyDown, [newPiece]));
+  useHandleKeyDown(useCallback(handleKeyDown, [newPiece, cameraSide]));
 };
 
 export default useNewPiecePosition;
