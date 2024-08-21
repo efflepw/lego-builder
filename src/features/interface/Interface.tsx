@@ -18,6 +18,7 @@ type Props = {
 
 const Interface = ({ children }: Props) => {
   const newPiece = useSelector((state: RootState) => state.interface.newPiece);
+  const cameraSide = useSelector((state: RootState) => state.camera.side);
 
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ const Interface = ({ children }: Props) => {
       dispatch(updateNewPieceConfig({ [key]: value }));
     };
 
-  useNewPiecePosition(newPiece);
+  useNewPiecePosition(newPiece, cameraSide);
   useKeyControl(newPiece);
 
   return (
