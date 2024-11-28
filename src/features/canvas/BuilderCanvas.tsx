@@ -14,7 +14,7 @@ import { getSide } from "@/lib/camera";
 const BuilderCanvas = () => {
   const newPiece = useSelector((state: RootState) => state.interface.newPiece);
   const pieces = useSelector((state: RootState) => state.canvas.pieces);
-  const cameraSide = useSelector((state: RootState) => state.camera.side);
+  const camera = useSelector((state: RootState) => state.camera);
 
   const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ const BuilderCanvas = () => {
       const azimuth = Math.atan2(position.z, position.x) + Math.PI;
       const side = getSide(azimuth);
 
-      if (side != cameraSide) {
+      if (side != camera.side) {
         dispatch(setSide(side));
       }
     }
@@ -55,7 +55,10 @@ const BuilderCanvas = () => {
           config={piece.config}
         />
       ))}
-      <OrbitControls onChange={handleRotationChange} />
+      <OrbitControls
+        onChange={handleRotationChange}
+        maxPolarAngle={camera.lockPolarRotation ? Math.PI / 2 : Math.PI}
+      />
       <PerformanceMonitor />
     </Canvas>
   );

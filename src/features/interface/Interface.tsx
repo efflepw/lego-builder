@@ -10,7 +10,9 @@ import { RootState } from "@/store";
 import NewPieceForm from "@/components/NewPieceForm";
 
 import { updateNewPieceColor, updateNewPieceConfig } from "./interfaceSlice";
+import { toggleLockPolarRotation } from "../camera/cameraSlice";
 import { useKeyControl, useNewPiecePosition } from ".";
+import CanvasOverlay from "@/components/CanvasOverlay";
 
 type Props = {
   children: React.ReactNode;
@@ -18,7 +20,7 @@ type Props = {
 
 const Interface = ({ children }: Props) => {
   const newPiece = useSelector((state: RootState) => state.interface.newPiece);
-  const cameraSide = useSelector((state: RootState) => state.camera.side);
+  const camera = useSelector((state: RootState) => state.camera);
 
   const dispatch = useDispatch();
 
@@ -32,13 +34,21 @@ const Interface = ({ children }: Props) => {
       dispatch(updateNewPieceConfig({ [key]: value }));
     };
 
-  useNewPiecePosition(newPiece, cameraSide);
+  const toggleRotation = () => {
+    dispatch(toggleLockPolarRotation());
+  };
+
+  useNewPiecePosition(newPiece, camera.side);
   useKeyControl(newPiece);
 
   return (
     <div className="min-h-dvh">
       <ResizablePanelGroup direction="horizontal" className="min-h-dvh">
         <ResizablePanel className="h-auto" defaultSize={!!newPiece ? 80 : 100}>
+          <CanvasOverlay
+            lockPolarRotation={camera.lockPolarRotation}
+            toggleLockPolarRotation={toggleRotation}
+          />
           {children}
         </ResizablePanel>
         <ResizableHandle />
