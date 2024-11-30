@@ -8,7 +8,7 @@ export interface CameraState {
 
 const initialState: CameraState = {
   side: 0,
-  lockPolarRotation: false,
+  lockPolarRotation: true,
 };
 
 export const canvasSlice = createSlice({

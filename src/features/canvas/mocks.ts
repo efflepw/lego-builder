@@ -1,6 +1,6 @@
 import { Piece } from "@/models/piece";
 
-export const defaultCanvasPiece: Piece = {
+export const BASE_PLATE: Piece = {
   position: [0, 0, 0],
   color: "orange",
   config: {

@@ -1,3 +1,5 @@
+import { Select } from "@react-three/postprocessing";
+
 import * as pieceSpec from "@/const/piece";
 import {
   getInnerCylindersPositions,
@@ -6,6 +8,7 @@ import {
   getStudsPositions,
 } from "@/lib/piece";
 import { PieceConfig, Position } from "@/models/piece";
+import { useState } from "react";
 
 type PieceProps = {
   position: Position;
@@ -86,15 +89,31 @@ const PieceBox = ({ position, config, color }: PieceProps) => {
   const surfaces = getPieceBoxSurfaces(position, config);
   const innerSurfaces = getPieceInnerSurfaces(position, config);
 
+  const [hovered, setHovered] = useState(false);
+
+  // on piece hover
+  const onPointerOver = () => {
+    setHovered(true);
+  };
+
+  const onPointerOut = () => {
+    setHovered(false);
+  };
+
   return (
-    <>
+    <Select enabled={hovered}>
       {[...surfaces, ...innerSurfaces].map(({ position, shape }, idx) => (
-        <mesh position={position} key={idx}>
+        <mesh
+          position={position}
+          key={idx}
+          onPointerOver={onPointerOver}
+          onPointerOut={onPointerOut}
+        >
           <boxGeometry args={shape} />
           <meshStandardMaterial color={color} />
         </mesh>
       ))}
-    </>
+    </Select>
   );
 };
 

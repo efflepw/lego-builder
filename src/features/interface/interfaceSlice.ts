@@ -4,10 +4,12 @@ import { newPieceState } from "./mock";
 
 export interface InterfaceState {
   newPiece: Piece | null;
+  showBasePlate: boolean;
 }
 
 const initialState: InterfaceState = {
   newPiece: null,
+  showBasePlate: true,
 };
 
 export const interfaceSlice = createSlice({
@@ -49,6 +51,9 @@ export const interfaceSlice = createSlice({
       state.newPiece.config.width = state.newPiece.config.length;
       state.newPiece.config.length = temp;
     },
+    toggleShowBasePlate: (state) => {
+      state.showBasePlate = !state.showBasePlate;
+    },
   },
 });
 
@@ -59,6 +64,7 @@ export const {
   updateNewPiecePosition,
   updateNewPieceColor,
   updateNewPieceConfig,
+  toggleShowBasePlate,
 } = interfaceSlice.actions;
 
 export default interfaceSlice.reducer;

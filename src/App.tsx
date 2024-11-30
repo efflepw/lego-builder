@@ -5,7 +5,7 @@ import { Interface } from "./features/interface";
 import { useLocalStorage } from "./hooks";
 import { useEffect } from "react";
 import { Piece } from "./models/piece";
-import { defaultCanvasPiece, setLoadedPieces } from "./features/canvas";
+import { setLoadedPieces } from "./features/canvas";
 import Tips from "./components/Tips";
 import { RootState } from "./store";
 
@@ -15,9 +15,7 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const { getItem } = useLocalStorage<Piece[]>("pieces", [
-      defaultCanvasPiece,
-    ]);
+    const { getItem } = useLocalStorage<Piece[]>("pieces", []);
 
     dispatch(setLoadedPieces(getItem()));
   }, [dispatch]);

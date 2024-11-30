@@ -9,8 +9,13 @@ import { Piece } from "@/models/piece";
 import { RootState } from "@/store";
 import NewPieceForm from "@/components/NewPieceForm";
 
-import { updateNewPieceColor, updateNewPieceConfig } from "./interfaceSlice";
+import {
+  toggleShowBasePlate,
+  updateNewPieceColor,
+  updateNewPieceConfig,
+} from "./interfaceSlice";
 import { toggleLockPolarRotation } from "../camera/cameraSlice";
+import { clearCanvas } from "../canvas/canvasSlice";
 import { useKeyControl, useNewPiecePosition } from ".";
 import CanvasOverlay from "@/components/CanvasOverlay";
 
@@ -19,7 +24,7 @@ type Props = {
 };
 
 const Interface = ({ children }: Props) => {
-  const newPiece = useSelector((state: RootState) => state.interface.newPiece);
+  const interfaceState = useSelector((state: RootState) => state.interface);
   const camera = useSelector((state: RootState) => state.camera);
 
   const dispatch = useDispatch();
@@ -38,24 +43,38 @@ const Interface = ({ children }: Props) => {
     dispatch(toggleLockPolarRotation());
   };
 
-  useNewPiecePosition(newPiece, camera.side);
-  useKeyControl(newPiece);
+  const togglePlate = () => {
+    dispatch(toggleShowBasePlate());
+  };
+
+  const onClear = () => {
+    dispatch(clearCanvas());
+  };
+
+  useNewPiecePosition(interfaceState.newPiece, camera.side);
+  useKeyControl(interfaceState.newPiece);
 
   return (
     <div className="min-h-dvh">
       <ResizablePanelGroup direction="horizontal" className="min-h-dvh">
-        <ResizablePanel className="h-auto" defaultSize={!!newPiece ? 80 : 100}>
+        <ResizablePanel
+          className="h-auto"
+          defaultSize={!!interfaceState.newPiece ? 80 : 100}
+        >
           <CanvasOverlay
             lockPolarRotation={camera.lockPolarRotation}
+            showPlate={interfaceState.showBasePlate}
+            toggleShowPlate={togglePlate}
             toggleLockPolarRotation={toggleRotation}
+            onClear={onClear}
           />
           {children}
         </ResizablePanel>
         <ResizableHandle />
-        {newPiece && (
+        {interfaceState.newPiece && (
           <ResizablePanel>
             <NewPieceForm
-              newPiece={newPiece}
+              newPiece={interfaceState.newPiece}
               onConfigUpdate={onConfigUpdate}
               onColorUpdate={onColorUpdate}
             />

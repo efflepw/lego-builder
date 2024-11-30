@@ -5,11 +5,15 @@
 - [x] add hint tooltip
 - [x] add relative piece movement
 - [x] lock polar camera rotation in 180 or 360
+- [x] hardcode base plate
+- [x] add clear canvas button
+- [x] add piece hover effect
 - [ ] add piece selection
 - [ ] add piece deletion
+- [ ] fix odd size details position
 - [ ] improve create new detail flow
 - [ ] add more piece types
+- [ ] gather performance stats to compare after optimization
 - [ ] add optimizations (instancing)
 - [ ] add camera position movement
-- [ ] add ability to move piece with a cursor
 - [ ] update README

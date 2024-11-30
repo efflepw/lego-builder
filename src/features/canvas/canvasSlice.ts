@@ -21,9 +21,14 @@ export const canvasSlice = createSlice({
     setLoadedPieces: (state, action: PayloadAction<Piece[]>) => {
       state.pieces = action.payload;
     },
+    clearCanvas: (state) => {
+      state.pieces = [];
+      localStorage.setItem("pieces", "[]");
+    },
   },
 });
 
-export const { addNewPiece, setLoadedPieces } = canvasSlice.actions;
+export const { addNewPiece, setLoadedPieces, clearCanvas } =
+  canvasSlice.actions;
 
 export default canvasSlice.reducer;

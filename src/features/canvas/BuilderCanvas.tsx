@@ -4,21 +4,29 @@ import {
   OrbitControlsChangeEvent,
   PerformanceMonitor,
 } from "@react-three/drei";
+import {
+  EffectComposer,
+  Outline,
+  Selection,
+} from "@react-three/postprocessing";
 
 import { Piece } from "@/components/Piece";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { setSide } from "../camera";
 import { getSide } from "@/lib/camera";
+import { BASE_PLATE } from "./mocks";
 
 const BuilderCanvas = () => {
-  const newPiece = useSelector((state: RootState) => state.interface.newPiece);
+  const interfaceState = useSelector((state: RootState) => state.interface);
   const pieces = useSelector((state: RootState) => state.canvas.pieces);
   const camera = useSelector((state: RootState) => state.camera);
 
   const dispatch = useDispatch();
 
-  const piecesToRender = newPiece ? [...pieces, newPiece] : pieces;
+  const piecesToRender = interfaceState.newPiece
+    ? [...pieces, interfaceState.newPiece]
+    : pieces;
 
   const handleRotationChange = (event?: OrbitControlsChangeEvent) => {
     if (event?.target) {
@@ -47,14 +55,25 @@ const BuilderCanvas = () => {
         intensity={Math.PI}
       />
       <pointLight position={[-10, -20, -10]} decay={0} intensity={Math.PI} />
-      {piecesToRender.map((piece, index) => (
-        <Piece
-          key={index}
-          position={piece.position}
-          color={piece.color}
-          config={piece.config}
-        />
-      ))}
+      <Selection>
+        <EffectComposer multisampling={8} autoClear={false}>
+          <Outline
+            blur
+            visibleEdgeColor={0xffffff}
+            edgeStrength={100}
+            width={1000}
+          />
+        </EffectComposer>
+        {piecesToRender.map((piece, index) => (
+          <Piece
+            key={index}
+            position={piece.position}
+            color={piece.color}
+            config={piece.config}
+          />
+        ))}
+      </Selection>
+      {interfaceState.showBasePlate && <Piece {...BASE_PLATE} />}
       <OrbitControls
         onChange={handleRotationChange}
         maxPolarAngle={camera.lockPolarRotation ? Math.PI / 2 : Math.PI}
