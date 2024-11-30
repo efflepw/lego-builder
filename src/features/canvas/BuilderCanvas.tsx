@@ -3,6 +3,7 @@ import {
   OrbitControls,
   OrbitControlsChangeEvent,
   PerformanceMonitor,
+  Stats,
 } from "@react-three/drei";
 import {
   EffectComposer,
@@ -79,6 +80,7 @@ const BuilderCanvas = () => {
         maxPolarAngle={camera.lockPolarRotation ? Math.PI / 2 : Math.PI}
       />
       <PerformanceMonitor />
+      <Stats className="bottom-0 !top-auto" />
     </Canvas>
   );
 };

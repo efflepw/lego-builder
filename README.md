@@ -8,6 +8,7 @@
 - [x] hardcode base plate
 - [x] add clear canvas button
 - [x] add piece hover effect
+- [x] add performance monitor
 - [ ] add piece selection
 - [ ] add piece deletion
 - [ ] fix odd size details position
