@@ -17,5 +17,5 @@ export const ROTATION_KB = {
 
 export const INTERFACE_KB = {
   apply: "Enter",
-  back: "Backspace",
+  back: ["Backspace", "Escape"],
 };

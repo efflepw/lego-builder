@@ -9,9 +9,9 @@
 - [x] add clear canvas button
 - [x] add piece hover effect
 - [x] add performance monitor
+- [x] fix odd size details position
 - [ ] add piece selection
 - [ ] add piece deletion
-- [ ] fix odd size details position
 - [ ] improve create new detail flow
 - [ ] add more piece types
 - [ ] gather performance stats to compare after optimization

@@ -17,17 +17,16 @@ import { RootState } from "@/store";
 import { setSide } from "../camera";
 import { getSide } from "@/lib/camera";
 import { BASE_PLATE } from "./mocks";
+import { getNewPiecePosition } from "./utils";
 
 const BuilderCanvas = () => {
   const interfaceState = useSelector((state: RootState) => state.interface);
   const pieces = useSelector((state: RootState) => state.canvas.pieces);
   const camera = useSelector((state: RootState) => state.camera);
 
-  const dispatch = useDispatch();
+  const newPiece = interfaceState.newPiece;
 
-  const piecesToRender = interfaceState.newPiece
-    ? [...pieces, interfaceState.newPiece]
-    : pieces;
+  const dispatch = useDispatch();
 
   const handleRotationChange = (event?: OrbitControlsChangeEvent) => {
     if (event?.target) {
@@ -65,7 +64,7 @@ const BuilderCanvas = () => {
             width={1000}
           />
         </EffectComposer>
-        {piecesToRender.map((piece, index) => (
+        {pieces.map((piece, index) => (
           <Piece
             key={index}
             position={piece.position}
@@ -73,6 +72,13 @@ const BuilderCanvas = () => {
             config={piece.config}
           />
         ))}
+        {newPiece && (
+          <Piece
+            position={getNewPiecePosition(newPiece)}
+            color={newPiece.color}
+            config={newPiece.config}
+          />
+        )}
       </Selection>
       {interfaceState.showBasePlate && <Piece {...BASE_PLATE} />}
       <OrbitControls

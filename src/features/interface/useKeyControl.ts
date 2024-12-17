@@ -13,22 +13,17 @@ const useKeyControl = (newPiece: Piece | null) => {
   const handleKeyDown = (event: KeyboardEvent) => {
     event.preventDefault();
 
-    switch (event.code) {
-      case INTERFACE_KB.apply:
-        if (!newPiece) {
-          dispatch(addEmptyPiece());
-        } else {
-          dispatch(addNewPiece(newPiece));
-          dispatch(restoreDefault());
-        }
-        break;
-      case INTERFACE_KB.back:
-        if (!!newPiece) {
-          dispatch(restoreDefault());
-        }
-        break;
-      default:
-        break;
+    if (event.code == INTERFACE_KB.apply) {
+      if (!newPiece) {
+        dispatch(addEmptyPiece());
+      } else {
+        dispatch(addNewPiece(newPiece));
+        dispatch(restoreDefault());
+      }
+    } else if (INTERFACE_KB.back.includes(event.code)) {
+      if (!!newPiece) {
+        dispatch(restoreDefault());
+      }
     }
   };
 

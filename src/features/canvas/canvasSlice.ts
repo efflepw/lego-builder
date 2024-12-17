@@ -1,5 +1,6 @@
 import { Piece } from "@/models/piece";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getNewPiecePosition } from "./utils";
 
 export interface CanvasState {
   pieces: Piece[];
@@ -14,7 +15,10 @@ export const canvasSlice = createSlice({
   initialState,
   reducers: {
     addNewPiece: (state, action: PayloadAction<Piece>) => {
-      state.pieces.push(action.payload);
+      state.pieces.push({
+        ...action.payload,
+        position: getNewPiecePosition(action.payload),
+      });
 
       localStorage.setItem("pieces", JSON.stringify(state.pieces));
     },
